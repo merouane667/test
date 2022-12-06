@@ -50,5 +50,30 @@ public class ProductDaoUnitTest {
         assertThat(foundProduct).isEqualTo(p1);
     }
 
+    @Test
+    public void createProductTest() {
+        Product p  = new Product("product 1", "product 1 description", 400.0);
+        productDao.save(p);
+        assertThat(p).hasFieldOrPropertyWithValue("name", "product 1");
+        assertThat(p).hasFieldOrPropertyWithValue("description", "product 1 description");
+        assertThat(p).hasFieldOrPropertyWithValue("price", 400.0);
+    }
+
+    @Test
+    public void deleteProductTest() {
+        Product p1  = new Product("product 1", "product 1 description", 400.0);
+        testEntityManager.persist(p1);
+        Product p2  = new Product("product 2", "product 2 description", 600.0);
+        testEntityManager.persist(p2);
+        Product p3  = new Product("product 3", "product 3 description", 700.0);
+        testEntityManager.persist(p3);
+
+        productDao.delete(p1);
+
+        Iterable<Product> products = productDao.findAll();
+        assertThat(products).doesNotContain(p1).contains(p2, p3);
+    }
+
+
 
 }
