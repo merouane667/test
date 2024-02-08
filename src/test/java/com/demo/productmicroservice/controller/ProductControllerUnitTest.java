@@ -75,6 +75,7 @@ public class ProductControllerUnitTest {
                 .andDo(print());
     }
 
+
     @Test
     public void createProductTest() throws Exception {
         //Arrange
@@ -122,5 +123,6 @@ public class ProductControllerUnitTest {
                 .andExpect(status().isOk())
                 .andDo(print());
     }
+
 
 }
